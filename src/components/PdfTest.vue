@@ -2,7 +2,8 @@
   <div>
     <button @click="test" v-if="false"> test </button>
     <button class="button is-info" @click="uploadHTML"> <slot>document</slot> </button>
-    <!-- <input id="file" type="file"  @change="uploadfile" /> -->
+    <button class="button is-info" @click="csvTest"> csv </button>
+    <button class="button is-info" @click="downloadHTML"> dkHTML </button>
   </div>
 </template>
 
@@ -28,6 +29,32 @@ export default {
             body: formData
         }).then(res=>res.json()).then(json=>window.console.log(json))
       },
+    csvTest(){
+      //https://chaika.hatenablog.com/entry/2018/12/23/090000
+      const str = "星宮いちご, 霧矢あおい, 紫吹蘭\n大空あかり, 氷上すみれ, 新条ひなき\n";
+      // Blobでファイルを作成
+      const file = new Blob([str, "神崎美月, 夏樹みくる"], {
+        type: "text/csv;charset=utf-8"
+      });
+
+      // ダウンロード
+      const a = document.createElement('a');
+      // ダウンロードされるファイル名
+      a.download = 'aikatsu.csv';
+      a.href = URL.createObjectURL(file);
+      // ダウンロード開始
+      a.click();
+    },
+    downloadHTML() {
+      var blob = new Blob([document.querySelector('html').outerHTML], 
+      { type: "text/html"});
+      const a = document.createElement('a');
+      // ダウンロードされるファイル名
+      a.download = 'test.html';
+      a.href = URL.createObjectURL(blob);
+      // ダウンロード開始
+      a.click();
+    },
   },
 
 }

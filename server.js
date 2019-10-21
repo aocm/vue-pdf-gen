@@ -40,7 +40,7 @@ var fs = require('fs');
 
 var pdf = require('html-pdf');
 var options = { format: 'Letter' };
-var myFile = await blobToFile(file, "./before.html");
+var myFile = await blobToFile(file, "before.html");
 console.log(myFile)
 var html = fs.readFileSync(myFile.path, 'utf8');
 await pdf.create(html, options).toFile(`./uploads/pdfs/${count++}.pdf`, function(err, res) {
